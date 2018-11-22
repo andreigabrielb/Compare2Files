@@ -15,3 +15,9 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(int(main() or 0))
+
+
+def open_file():
+    file(f, r, w)
+    return (f)
+
