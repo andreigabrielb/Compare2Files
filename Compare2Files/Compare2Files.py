@@ -18,15 +18,28 @@ def print_file_content(fname):
     f.close()
 
 def check_file_existance(fname):
-    #This functionl will check if a file exists or show error if not
+    #This functionl will check if a file exists and has data or show error if not
 
+    # Check if file exists
     if os.path.exists(fname):
-        # Check if file exists and if yes will print its content
-        print_file_content(fname)
+        #check if files are empty 
+        if os.path.getsize(fname) > 0:
+            print_file_content(fname)
+        #close the app file is empty
+        else:
+            print(fname + " is empty!")
+            sys.exit()
+    #close the application is file is not available
     else: 
-        print(fname + " not found.")
+        print(fname + " not found!")
         sys.exit()
 
+def return_lines_from_file(fname):
+    # This function is meant to return a line [ln] from a file [fname]
+    f = open(fname, "r")
+    fl = f.readlines()
+    f.close()
+    return fl
 
 def main():
     # This is the main body of the application
@@ -36,49 +49,32 @@ def main():
     fname2 = "file2.txt"
     rezfname = "rezult_file.txt"
 
-    # Check if files exist and display their content
+    # Check if files exist, have data and display their content
     check_file_existance(fname1)
     check_file_existance(fname2)
-
-    # Create clean results file
-    rezf = open(rezfname, "w+")
-    rezf.close()
 
     # Count the number of lines in the files and display them
     nl_f1 = count_file_lines(fname1)
     nl_f2 = count_file_lines(fname2)
-
     print("The 1st file has %d lines." % nl_f1)
     print("The 2nd file has %d lines." % nl_f2)
-    print(count_file_lines(rezfname))
+
+    # Get linies from lines from file as a list of strings
+    fl1 = return_lines_from_file(fname1)
+    fl2 = return_lines_from_file(fname2)
+
+    # Create clean results file
+    rezf = open(rezfname, "w+")
+
+    # Determine if the files have the same number of lines 
+    if nl_f1 <> nl_f2:
+        max_ln = max(nl_f1, nl_f2)
+
     
 
-"""
-    # Check if file2 exists
-    if os.path.exists("file2.txt"):
-        # Opening 2nd file for compare
-        f2 = open("file2.txt", "r") # file to compare open for read only
-        # Check if first file is open for read and print it's content if yes
-        nl_f2 = count_file_lines(f2)
-    else: 
-        print("File2 not found.")
-        sys.exit()
-    
-    # Check if a results file already exists. 
-    if os.path.exists("result_file.txt"):
-        os.remove("result_file.txt")
-        rezf = open("rezult_file.txt", "w+")
-    else:
-        rezf = open("rezult_file.txt", "w+")
- 
-    print("The 1st file has: ", nl_f1)
-    print("The 2nd file has: ", nl_f2)
-    print(print_file_line_by_line(rezf))
+    rezf.close()
 
-    #Close all of the open files here
-    f1.close()
-    f2.close()
-"""
+    check_file_existance(rezfname)
 
 if __name__ == "__main__":
     main()
