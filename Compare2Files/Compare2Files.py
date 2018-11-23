@@ -11,7 +11,7 @@ def print_file_content(f):
 
 def main():
     # This is the main body of the application
-
+    
     # Check if file1 exists
     if os.path.exists("file1.txt"):
         # Opening 1st file for compare

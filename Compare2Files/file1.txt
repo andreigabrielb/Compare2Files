@@ -1,2 +1,4 @@
-This is the text. 
+This is the text.
 This is file1.
+This line will be empty in file2.txt
+Here we have text in both files.

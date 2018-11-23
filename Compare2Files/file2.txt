@@ -1,2 +1,4 @@
-This is the text. 
+This is the text.
 This is file2.
+
+Here we have text in both files.
