@@ -1,4 +1,5 @@
 import os.path
+import sys
 
 def print_file_content(f):
     #This function reads from a file and prints its content 
@@ -11,16 +12,25 @@ def print_file_content(f):
 def main():
     # This is the main body of the application
 
-    # Opening first file for compare
-    f1 = open("file1.txt", "r") # file to compare open for read only
+    # Check if file1 exists
+    if os.path.exists("file1.txt"):
+        # Opening 1st file for compare
+        f1 = open("file1.txt", "r") # file to compare open for read only
+        # Check if first file is open for read and print it's content if yes
+        print_file_content(f1)
+    else: 
+        print("File1 not found.")
+        sys.exit()
 
-    # Check if first file is open for read and print it's content if yes
-    print_file_content(f1)
-
-    f2 = open("file2.txt", "r") # file to compare open for read only
-
-     # Check if first file is open for read and print it's content if yes
-    print_file_content(f2)
+    # Check if file2 exists
+    if os.path.exists("file2.txt"):
+        # Opening 2nd file for compare
+        f2 = open("file2.txt", "r") # file to compare open for read only
+        # Check if first file is open for read and print it's content if yes
+        print_file_content(f2)
+    else: 
+        print("File2 not found.")
+        sys.exit()
     
     # Check if a results file already exists. 
     if os.path.exists("result_file.txt"):
