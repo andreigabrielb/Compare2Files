@@ -68,13 +68,27 @@ def main():
 
     # Determine if the files have the same number of lines 
     if nl_f1 <> nl_f2:
-        max_ln = max(nl_f1, nl_f2)
+        min_ln = min(nl_f1, nl_f2)
 
-    
+    print("min_ln is: %d" % min_ln)
 
+    # Go through each of the file lines and compare them
+    for i in (0, min_ln-1):
+        if fl1[i] == fl2[i]:
+            rezf.write("[Differences = 0] \n")
+        else:
+            rezf.write("[Differences = ???] \n")
+
+    # In case one file has more lines than the other write in the results which one has more lines
+    if nl_f1 > nl_f2:
+        rezf.write("%s has %d more lines than %s \n" % (fname1, nl_f1 - nl_f2, fname2))
+    elif nl_f1 < nl_f2:
+        rezf.write("%s has %d more lines than %s \n" % (fname1, nl_f1 - nl_f2, fname2))
+
+    #Close results file
     rezf.close()
 
-    check_file_existance(rezfname)
+    print_file_content(rezfname)
 
 if __name__ == "__main__":
     main()
