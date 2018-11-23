@@ -75,9 +75,9 @@ def main():
     # Go through each of the file lines and compare them
     for i in (0, min_ln-1):
         if fl1[i] == fl2[i]:
-            rezf.write("[Differences = 0] \n")
+            rezf.write("[Line %d Differences = 0] \n" % (i+1))
         else:
-            rezf.write("[Differences = ???] \n")
+            rezf.write("[Line %d Differences = ???] \n" % (i+1))
 
     # In case one file has more lines than the other write in the results which one has more lines
     if nl_f1 > nl_f2:
