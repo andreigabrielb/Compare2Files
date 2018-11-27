@@ -12,9 +12,10 @@ def count_file_lines(fname):
 
 def print_file_content(fname):
     #This method reads from a file and prints its content 
+    print(fname + "--------------------------------\n" )
     f = open(fname, "r")
     print(f.read())
-    print
+    print("-----------------------------\n")
     f.close()
 
 def check_file_existance(fname):
@@ -41,6 +42,42 @@ def return_lines_from_file(fname):
     f.close()
     return fl
 
+def string_differences(str1, str2):
+    # This fucntion will retunr the number of diffrent chararters between string 1 and string 2 and the differences
+    diff_count = 0
+    diff_str = ""
+
+    if str1 == "\n":
+        diff_count = len(str2)
+        diff_str = "This line is empty in the 1st file."
+
+    elif str2 == "\n":
+        diff_count = len(str1)
+        diff_str ="This line is empty in the 2nd file."
+
+    else:
+        row_lenght = min(len(str1), len(str2))
+
+        for i in range(row_lenght-1):
+            if str1[i] <> str2[i]:
+                diff_count += 1
+                diff_str += str(i+1)
+            else:
+                diff_str += " "
+
+        if len(str1) > len(str2):
+            diff_count += (len(str1) - len(str2))
+            for i in range(len(str2)-1, len(str1)-1, 1):
+                diff_str += str1(i+1)
+
+        elif len(str1) < len(str2):
+            diff_count += (len(str2) - len(str1))
+            for i in range(len(str2)-1, len(str1)-1, 1):
+                diff_str += str2(i+1)
+
+    print(diff_count)
+    print(diff_str)
+
 def main():
     # This is the main body of the application
     
@@ -56,8 +93,6 @@ def main():
     # Count the number of lines in the files and display them
     nl_f1 = count_file_lines(fname1)
     nl_f2 = count_file_lines(fname2)
-    print("The 1st file has %d lines." % nl_f1)
-    print("The 2nd file has %d lines." % nl_f2)
 
     # Get linies from lines from file as a list of strings
     fl1 = return_lines_from_file(fname1)
@@ -70,14 +105,13 @@ def main():
     if nl_f1 <> nl_f2:
         min_ln = min(nl_f1, nl_f2)
 
-    print("min_ln is: %d" % min_ln)
-
     # Go through each of the file lines and compare them
-    for i in (0, min_ln-1):
+    for i in range(min_ln-1):
         if fl1[i] == fl2[i]:
             rezf.write("[Line %d Differences = 0] \n" % (i+1))
-        else:
+        else:            
             rezf.write("[Line %d Differences = ???] \n" % (i+1))
+            string_differences(fl1[i], fl2[i])
 
     # In case one file has more lines than the other write in the results which one has more lines
     if nl_f1 > nl_f2:

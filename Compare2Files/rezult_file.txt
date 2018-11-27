@@ -1,3 +1,4 @@
 [Line 1 Differences = 0] 
-[Line 4 Differences = ???] 
+[Line 2 Differences = ???] 
+[Line 3 Differences = ???] 
 file1.txt has 1 more lines than file2.txt 
