@@ -43,17 +43,21 @@ def return_lines_from_file(fname):
     return fl
 
 def string_differences(str1, str2):
-    # This fucntion will retunr the number of diffrent chararters between string 1 and string 2 and the differences
+    # This fucntion will return the number of different chararters between string 1 and string 2 and the differences character index location
     diff_count = 0
     diff_str = ""
 
     if str1 == "\n":
         diff_count = len(str2)
-        diff_str = "This line is empty in the 1st file."
+        diff_str = " This line is empty in the 1st file."
+        string_result = str(diff_count) + diff_str
+        return string_result
 
     elif str2 == "\n":
         diff_count = len(str1)
         diff_str ="This line is empty in the 2nd file."
+        string_result = str(diff_count) + diff_str
+        return string_result
 
     else:
         row_lenght = min(len(str1), len(str2))
@@ -68,15 +72,17 @@ def string_differences(str1, str2):
         if len(str1) > len(str2):
             diff_count += (len(str1) - len(str2))
             for i in range(len(str2)-1, len(str1)-1, 1):
-                diff_str += str1(i+1)
+                diff_str += str(i+1)
 
         elif len(str1) < len(str2):
             diff_count += (len(str2) - len(str1))
             for i in range(len(str2)-1, len(str1)-1, 1):
-                diff_str += str2(i+1)
+                diff_str += str(i+1)
 
-    print(diff_count)
-    print(diff_str)
+    #print(diff_count)
+    #print(diff_str)
+    string_result = str(diff_count) + diff_str
+    return string_result
 
 def main():
     # This is the main body of the application
@@ -109,20 +115,21 @@ def main():
     for i in range(min_ln-1):
         if fl1[i] == fl2[i]:
             rezf.write("[Line %d Differences = 0] \n" % (i+1))
-        else:            
-            rezf.write("[Line %d Differences = ???] \n" % (i+1))
-            string_differences(fl1[i], fl2[i])
+        else:
+            result_string = rezf.write(string_differences(fl1[i], fl2[i]))
+            rezf.write("[Line %d Differences = %s\n]" % ((i+1), result_string))
+            
 
     # In case one file has more lines than the other write in the results which one has more lines
     if nl_f1 > nl_f2:
         rezf.write("%s has %d more lines than %s \n" % (fname1, nl_f1 - nl_f2, fname2))
     elif nl_f1 < nl_f2:
         rezf.write("%s has %d more lines than %s \n" % (fname1, nl_f1 - nl_f2, fname2))
-
     #Close results file
     rezf.close()
 
     print_file_content(rezfname)
+
 
 if __name__ == "__main__":
     main()
