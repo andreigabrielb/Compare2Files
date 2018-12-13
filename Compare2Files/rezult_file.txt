@@ -1,4 +1,4 @@
 [Line 1 Differences = 0] 
-1            13 [Line 2 Differences = None
-]37This line is empty in the 2nd file.[Line 3 Differences = None
-]file1.txt has 1 more lines than file2.txt 
+[Line 2 Differences = 1 At the following character index: ____________13_]
+[Line 3 Differences = 37 This line is empty in the 2nd file.]
+file1.txt has 1 more lines than file2.txt 

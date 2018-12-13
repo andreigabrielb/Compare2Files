@@ -1,5 +1,6 @@
 import os.path
 import sys
+from Tkinter import Tk, Label, Button 
 
 def count_file_lines(fname):
     #This function will return the number of lines in a file
@@ -55,7 +56,7 @@ def string_differences(str1, str2):
 
     elif str2 == "\n":
         diff_count = len(str1)
-        diff_str ="This line is empty in the 2nd file."
+        diff_str =" This line is empty in the 2nd file."
         string_result = str(diff_count) + diff_str
         return string_result
 
@@ -67,7 +68,7 @@ def string_differences(str1, str2):
                 diff_count += 1
                 diff_str += str(i+1)
             else:
-                diff_str += " "
+                diff_str += "_"
 
         if len(str1) > len(str2):
             diff_count += (len(str1) - len(str2))
@@ -81,7 +82,7 @@ def string_differences(str1, str2):
 
     #print(diff_count)
     #print(diff_str)
-    string_result = str(diff_count) + diff_str
+    string_result = str(diff_count) + " At the following character index: " + diff_str
     return string_result
 
 def main():
@@ -116,8 +117,8 @@ def main():
         if fl1[i] == fl2[i]:
             rezf.write("[Line %d Differences = 0] \n" % (i+1))
         else:
-            result_string = rezf.write(string_differences(fl1[i], fl2[i]))
-            rezf.write("[Line %d Differences = %s\n]" % ((i+1), result_string))
+            result_string = string_differences(fl1[i], fl2[i])
+            rezf.write("[Line %d Differences = %s]\n" % ((i+1), result_string))
             
 
     # In case one file has more lines than the other write in the results which one has more lines
@@ -130,6 +131,27 @@ def main():
 
     print_file_content(rezfname)
 
+class AppUI:
+    def __init__(self, master):
+        self.master = master
+        master.title("Compare 2 files")
+
+        self.label = Label(master, text = "This is a application to compare 2 files.")
+        self.label.pack()
+
+        self.compare_button = Button(master, text = "Compare files", command = self.compare)
+        self.compare_button.pack()
+
+        self.close_button = Button(master, text = "Close", command = master.quit)
+        self.close_button.pack()
+
+    def compare(self):
+        print("This is a place holder")
+
+
 
 if __name__ == "__main__":
-    main()
+    root = Tk()
+    app_gui = AppUI(root)
+    root.mainloop()
+#    main()
