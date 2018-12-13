@@ -85,7 +85,7 @@ def string_differences(str1, str2):
     string_result = str(diff_count) + " At the following character index: " + diff_str
     return string_result
 
-def main():
+def compare2files():
     # This is the main body of the application
     
     # Create variables with the file names
@@ -139,7 +139,7 @@ class AppUI:
         self.label = Label(master, text = "This is a application to compare 2 files.")
         self.label.pack()
 
-        self.compare_button = Button(master, text = "Compare files", command = self.compare)
+        self.compare_button = Button(master, text = "Compare files", command = compare2files)
         self.compare_button.pack()
 
         self.close_button = Button(master, text = "Close", command = master.quit)
