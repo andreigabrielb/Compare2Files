@@ -49,24 +49,31 @@ def return_lines_from_file(fname):
 
 def string_differences(str1, str2):
     # This fucntion will return the number of different chararters between string 1 and string 2 and the differences character index location
+    # str1, strs2 are the sting arguments of the function
     diff_count = 0
     diff_str = ""
 
+    #Check if the first string is only an empty line
+    #if yes then return appropriate message
     if str1 == "\n":
         diff_count = len(str2)
         diff_str = " This line is empty in the 1st file."
         string_result = str(diff_count) + diff_str
         return string_result
 
+    #Check if the first string is only an empty line
+    #if yes then return appropriate message
     elif str2 == "\n":
         diff_count = len(str1)
         diff_str =" This line is empty in the 2nd file."
         string_result = str(diff_count) + diff_str
         return string_result
 
+    #Check which string has least characters
     else:
         row_lenght = min(len(str1), len(str2))
 
+        #Generate the delta between the 2 files by writing "_" when the same character is in both files or the characted index when there is a difference
         for i in range(row_lenght-1):
             if str1[i] <> str2[i]:
                 diff_count += 1
@@ -74,6 +81,7 @@ def string_differences(str1, str2):
             else:
                 diff_str += "_"
 
+        #Generate the rest of the deltas if one strings is longer than the others
         if len(str1) > len(str2):
             diff_count += (len(str1) - len(str2))
             for i in range(len(str2)-1, len(str1)-1, 1):
@@ -135,31 +143,41 @@ def compare2files():
 
     print_file_content(rezfname)
 
+#Define of the class that is responsible for the application UI
 class AppUI:
     def __init__(self, master):
+        #this fucntion initiaters the UI elements needed by the application 
+
+        #main window
         self.master = master
         master.title("Compare 2 files")
 
+        #object variables for the location of the files that will be compared
         self.file1name = ""
         self.file2name = ""
 
+        #explanatory text
         self.label = Label(master, text = "This is a application to compare 2 files.")
         self.label.grid(columnspan=2, sticky=W)
 
+        #initialization of the button to compare the 2 files
         self.compare_button = Button(master, text = "Compare files", command = compare2files)
         self.compare_button.grid(row=5)
 
+        #initialization of the button to close the main windowand application
         self.close_button = Button(master, text = "Close", command = master.quit)
         self.close_button.grid(row=5, column=1)
 
+        #initalization of button to load the first file
         self.load_file1_button = Button(master, text = "Load file 1", command=lambda: self.load_file("file1.txt"))
         self.load_file1_button.grid(row=2)
 
+        #initialization of the button to load the second file
         self.load_file2_button = Button(master, text = "Load file 2", command=lambda: self.load_file("file2.txt"))
         self.load_file2_button.grid(row=3)
 
     def load_file(self, file_name):
-        #This function will load a file and assign it to the appropriate variable
+        #This function will load a file and assign it to the appropriate object variable
         print("Loading file %s" % file_name)
         fname = askopenfilename(initialdir = "/",title = "Select file",filetypes = (("text files","*.txt"),("all files","*.*")))
         print (fname)
