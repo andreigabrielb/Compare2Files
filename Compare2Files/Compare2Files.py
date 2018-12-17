@@ -1,6 +1,10 @@
 import os.path
 import sys
-from Tkinter import Tk, Label, Button, W, N, E, W
+from Tkinter import Tk, Label, Button, W, N, E, W, Toplevel
+import Tkinter, Tkconstants, tkFileDialog, tkMessageBox
+from Tkinter import *
+from tkFileDialog import askopenfilename
+from tkMessageBox import showerror
 
 def count_file_lines(fname):
     #This function will return the number of lines in a file
@@ -136,14 +140,17 @@ class AppUI:
         self.master = master
         master.title("Compare 2 files")
 
+        self.file1name = ""
+        self.file2name = ""
+
         self.label = Label(master, text = "This is a application to compare 2 files.")
-        self.label.grid(columnspan=3, sticky=W)
+        self.label.grid(columnspan=2, sticky=W)
 
         self.compare_button = Button(master, text = "Compare files", command = compare2files)
-        self.compare_button.grid(row=1)
+        self.compare_button.grid(row=5)
 
         self.close_button = Button(master, text = "Close", command = master.quit)
-        self.close_button.grid(row=1, column=1)
+        self.close_button.grid(row=5, column=1)
 
         self.load_file1_button = Button(master, text = "Load file 1", command=lambda: self.load_file("file1.txt"))
         self.load_file1_button.grid(row=2)
@@ -151,12 +158,11 @@ class AppUI:
         self.load_file2_button = Button(master, text = "Load file 2", command=lambda: self.load_file("file2.txt"))
         self.load_file2_button.grid(row=3)
 
-    def compare(self):
-        print("This is a place holder")
-
     def load_file(self, file_name):
         #This function will load a file and assign it to the appropriate variable
-        print("Loafing file %s" % file_name)
+        print("Loading file %s" % file_name)
+        fname = askopenfilename(initialdir = "/",title = "Select file",filetypes = (("text files","*.txt"),("all files","*.*")))
+        print (fname)
 
 if __name__ == "__main__":
     root = Tk()
