@@ -169,18 +169,24 @@ class AppUI:
         self.close_button.grid(row=5, column=1)
 
         #initalization of button to load the first file
-        self.load_file1_button = Button(master, text = "Load file 1", command=lambda: self.load_file("file1.txt"))
+        self.load_file1_button = Button(master, text = "Load file 1", command=lambda: self.load_file("file1"))
         self.load_file1_button.grid(row=2)
 
         #initialization of the button to load the second file
-        self.load_file2_button = Button(master, text = "Load file 2", command=lambda: self.load_file("file2.txt"))
+        self.load_file2_button = Button(master, text = "Load file 2", command=lambda: self.load_file("file2"))
         self.load_file2_button.grid(row=3)
 
     def load_file(self, file_name):
         #This function will load a file and assign it to the appropriate object variable
         print("Loading file %s" % file_name)
-        fname = askopenfilename(initialdir = "/",title = "Select file",filetypes = (("text files","*.txt"),("all files","*.*")))
-        print (fname)
+        if file_name == "file1":
+            self.file1name = askopenfilename(initialdir = "/",title = "Select file",filetypes = (("text files","*.txt"),("all files","*.*")))
+            print (self.file1name)
+            check_file_existance(self.file1name)
+        else:
+            self.file2name = askopenfilename(initialdir = "/",title = "Select file",filetypes = (("text files","*.txt"),("all files","*.*")))
+            print (self.file2name)
+            check_file_existance(self.file2name)
 
 if __name__ == "__main__":
     root = Tk()
