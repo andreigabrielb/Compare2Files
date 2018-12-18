@@ -1,4 +1,5 @@
-[Line 1 Differences = 0] 
-[Line 2 Differences = 1 At the following character index: ____________13_]
-[Line 3 Differences = 37 This line is empty in the 2nd file.]
-file1.txt has 1 more lines than file2.txt 
+[Line 1 Differences = 18 This line is empty in the 2nd file.]
+[Line 2 Differences = 13 At the following character index: 1234567_91011121314]
+[Line 3 Differences = 35 At the following character index: 123_56789101112131415161718192021222324252627282930313233343536]
+[Line 4 Differences = 33 This line is empty in the 2nd file.]
+C:/MyData/Personal/Automation_projects/Compare2Files/Compare2Files/file1.txt has -10 more lines than C:/MyData/Personal/Automation_projects/Compare2Files/Compare2Files/file3.txt 

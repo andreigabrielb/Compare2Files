@@ -23,7 +23,7 @@ def print_file_content(fname):
     print("-----------------------------\n")
     f.close()
 
-def check_file_existance(fname):
+def check_file_existance(fname, fnum):
     #This functionl will check if a file exists and has data or show error if not
 
     # Check if file exists
@@ -33,12 +33,12 @@ def check_file_existance(fname):
             print_file_content(fname)
         #close the app file is empty
         else:
-            print(fname + " is empty!")
-            sys.exit()
+            print("File %d is empty!" % fnum)
+            #sys.exit()
     #close the application is file is not available
     else: 
-        print(fname + " not found!")
-        sys.exit()
+        print("File %d not found!" % fnum)
+        #sys.exit()
 
 def return_lines_from_file(fname):
     # This function is meant to return a line [ln] from a file [fname]
@@ -97,17 +97,17 @@ def string_differences(str1, str2):
     string_result = str(diff_count) + " At the following character index: " + diff_str
     return string_result
 
-def compare2files():
+def compare2files(fname1, fname2):
     # This is the main body of the application
     
     # Create variables with the file names
-    fname1 = "file1.txt"
-    fname2 = "file2.txt"
+    #fname1 = "file1.txt"
+    #fname2 = "file2.txt"
     rezfname = "rezult_file.txt"
 
     # Check if files exist, have data and display their content
-    check_file_existance(fname1)
-    check_file_existance(fname2)
+    check_file_existance(fname1, 1)
+    check_file_existance(fname2, 2)
 
     # Count the number of lines in the files and display them
     nl_f1 = count_file_lines(fname1)
@@ -161,7 +161,7 @@ class AppUI:
         self.label.grid(columnspan=2, sticky=W)
 
         #initialization of the button to compare the 2 files
-        self.compare_button = Button(master, text = "Compare files", command = compare2files)
+        self.compare_button = Button(master, text = "Compare files", command=lambda: compare2files(self.file1name, self.file2name))
         self.compare_button.grid(row=5)
 
         #initialization of the button to close the main windowand application
@@ -182,11 +182,11 @@ class AppUI:
         if file_name == "file1":
             self.file1name = askopenfilename(initialdir = "/",title = "Select file",filetypes = (("text files","*.txt"),("all files","*.*")))
             print (self.file1name)
-            check_file_existance(self.file1name)
+            check_file_existance(self.file1name, 1)
         else:
             self.file2name = askopenfilename(initialdir = "/",title = "Select file",filetypes = (("text files","*.txt"),("all files","*.*")))
             print (self.file2name)
-            check_file_existance(self.file2name)
+            check_file_existance(self.file2name, 2)
 
 if __name__ == "__main__":
     root = Tk()
