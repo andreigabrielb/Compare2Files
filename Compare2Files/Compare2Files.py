@@ -1,6 +1,6 @@
 import os.path
 import sys
-from Tkinter import Tk, Label, Button, W, N, E, W, Toplevel
+from Tkinter import Tk, Label, Button, W, N, E, W, Toplevel, Message
 import Tkinter, Tkconstants, tkFileDialog, tkMessageBox
 from Tkinter import *
 from tkFileDialog import askopenfilename
@@ -38,7 +38,6 @@ def check_file_existance(fname, fnum):
     #close the application is file is not available
     else: 
         print("File %d not found!" % fnum)
-        #sys.exit()
 
 def return_lines_from_file(fname):
     # This function is meant to return a line [ln] from a file [fname]
@@ -119,6 +118,9 @@ def compare2files(fname1, fname2):
 
     # Create clean results file
     rezf = open(rezfname, "w+")
+    
+    #Adding the files that are being compared to the result file start
+    rezf.write("This file contins the difference between %s file and %s file." %(fname1, fname2))
 
     # Determine if the files have the same number of lines 
     if nl_f1 <> nl_f2:
@@ -132,7 +134,6 @@ def compare2files(fname1, fname2):
             result_string = string_differences(fl1[i], fl2[i])
             rezf.write("[Line %d Differences = %s]\n" % ((i+1), result_string))
             
-
     # In case one file has more lines than the other write in the results which one has more lines
     if nl_f1 > nl_f2:
         rezf.write("%s has %d more lines than %s \n" % (fname1, nl_f1 - nl_f2, fname2))
@@ -142,6 +143,7 @@ def compare2files(fname1, fname2):
     rezf.close()
 
     print_file_content(rezfname)
+    return rezfname
 
 #Define of the class that is responsible for the application UI
 class AppUI:
@@ -155,14 +157,19 @@ class AppUI:
         #object variables for the location of the files that will be compared
         self.file1name = ""
         self.file2name = ""
+        self.result_file = "rezult_file.txt"
 
         #explanatory text
         self.label = Label(master, text = "This is a application to compare 2 files.")
         self.label.grid(columnspan=2, sticky=W)
 
         #initialization of the button to compare the 2 files
-        self.compare_button = Button(master, text = "Compare files", command=lambda: compare2files(self.file1name, self.file2name))
-        self.compare_button.grid(row=5)
+        self.compare_button = Button(master, text = "Compare files", command=lambda: self.compare2files_button(self.file1name, self.file2name))
+        self.compare_button.grid(row=4)
+
+        #initialization of the button to display the content of the result file
+        self.print_result_button = Button(master, text = "Print result file", command=lambda: self.file_content_messagebox(self.result_file, 3))
+        self.print_result_button.grid(row=4, column=1)
 
         #initialization of the button to close the main windowand application
         self.close_button = Button(master, text = "Close", command = master.quit)
@@ -172,9 +179,17 @@ class AppUI:
         self.load_file1_button = Button(master, text = "Load file 1", command=lambda: self.load_file("file1"))
         self.load_file1_button.grid(row=2)
 
+        #initialize the button that will display the contect of the 1st file
+        self.print_file1_button = Button(master, text = "Print file 1", command=lambda: self.file_content_messagebox(self.file1name, 1))
+        self.print_file1_button.grid(row=2, column=1)
+
         #initialization of the button to load the second file
         self.load_file2_button = Button(master, text = "Load file 2", command=lambda: self.load_file("file2"))
         self.load_file2_button.grid(row=3)
+
+        #initialize the button that will display the contect of the 2nd file
+        self.print_file2_button = Button(master, text = "Print file 2", command=lambda: self.file_content_messagebox(self.file2name, 2))
+        self.print_file2_button.grid(row=3, column=1)
 
     def load_file(self, file_name):
         #This function will load a file and assign it to the appropriate object variable
@@ -187,6 +202,34 @@ class AppUI:
             self.file2name = askopenfilename(initialdir = "/",title = "Select file",filetypes = (("text files","*.txt"),("all files","*.*")))
             print (self.file2name)
             check_file_existance(self.file2name, 2)
+
+    def file_content_messagebox(self, fname, fnum):
+        #This method will display the content of a file in a new message box
+        #check if files have been loaded
+        if fname == "":
+            print("No file selected")
+        else:
+            #Check if loaded file exists
+            check_file_existance(fname, fnum)
+            print("file exists")
+
+            #Create a Toplevel meesage box
+            top = Toplevel()
+            top.title("File %d content" %fnum)
+
+            #Open the file and print its content in a message from the Toplevel
+            f = open(fname, 'r')
+            msg = Message(top, text=f.read())
+            msg.pack()
+            f.close()
+
+            #Create a button to close the Toplevel
+            button = Button(top, text="Dismiss", command=top.destroy)
+            button.pack()
+
+    def compare2files_button(self, fname1, fname2):
+        #This method will call the method that compares 2 files
+        compare2files(fname1, fname2)
 
 if __name__ == "__main__":
     root = Tk()
